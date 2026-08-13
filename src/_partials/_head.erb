@@ -1,9 +1,29 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <% resource_title = strip_html(strip_newlines(title)) %>
-<title><% if resource_title != "Index" %><%= resource_title %> | <%= metadata.title %><% else %><%= metadata.title %>: <%= metadata.tagline %><% end %></title>
+<%# The home page leads with the tagline; every other page is "Page | Site".
+    Held in a variable so <title> and og:title can never drift apart. %>
+<% page_title = resource_title == "Index" ? "#{metadata.title}: #{metadata.tagline}" : "#{resource_title} | #{metadata.title}" %>
+<title><%= page_title %></title>
 
 <meta name="description" content="<%= metadata.description %>" />
+
+<%# The error pages are reached by accident, never linked or shared, and their
+    permalinks keep a .html suffix that absolute_url strips — so a canonical
+    here would point at a URL that does not exist. Skip the discovery tags. %>
+<% if resource.data.noindex %>
+<meta name="robots" content="noindex" />
+<% else %>
+<link rel="canonical" href="<%= resource.absolute_url %>" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="<%= metadata.title %>" />
+<meta property="og:title" content="<%= page_title %>" />
+<meta property="og:description" content="<%= metadata.description %>" />
+<meta property="og:url" content="<%= resource.absolute_url %>" />
+<%# Absolute by necessity: scrapers do not resolve relative og:image paths. %>
+<meta property="og:image" content="<%= absolute_url "/images/photos/hero-meadow.jpg" %>" />
+<% end %>
 
 <link rel="icon" href="<%= relative_url "/images/favicon.svg" %>" type="image/svg+xml" />
 <link rel="icon" href="<%= relative_url "/favicon.ico" %>" sizes="32x32" />

@@ -1,0 +1,13 @@
+---
+permalink: /sitemap.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<%# Only the real pages: 404.html and 500.html are served as error documents,
+    never browsed to, so they are excluded by keeping directory URLs only. %>
+<% collections.pages.resources.select { _1.relative_url.end_with?("/") }.each do |page| %>
+  <url>
+    <loc><%= page.absolute_url %></loc>
+  </url>
+<% end %>
+</urlset>
