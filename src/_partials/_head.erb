@@ -1,0 +1,31 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<% resource_title = strip_html(strip_newlines(title)) %>
+<title><% if resource_title != "Index" %><%= resource_title %> | <%= metadata.title %><% else %><%= metadata.title %>: <%= metadata.tagline %><% end %></title>
+
+<meta name="description" content="<%= metadata.description %>" />
+
+<link rel="icon" href="<%= relative_url "/images/favicon.svg" %>" type="image/svg+xml" />
+<link rel="icon" href="<%= relative_url "/favicon.ico" %>" sizes="32x32" />
+<link rel="apple-touch-icon" href="<%= relative_url "/images/apple-touch-icon.png" %>" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,200..800&family=Work+Sans:wght@300;400;500;600&display=swap" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+<%# Carried over verbatim from the design source: the `main > :first-child`
+    reset is what lets the full-bleed heroes pull up under the fixed header. %>
+<style>
+  @layer base {
+    html, body { margin: 0; padding: 0; }
+    body { overscroll-behavior: none; }
+    main > :first-child { margin-top: 0 !important; }
+    main > :last-child { margin-bottom: 0 !important; }
+  }
+  ::-webkit-scrollbar { display: none; }
+</style>
+
+<link rel="stylesheet" href="<%= asset_path :css %>" />
+<script src="<%= asset_path :js %>" defer></script>
+<%= live_reload_dev_js %>

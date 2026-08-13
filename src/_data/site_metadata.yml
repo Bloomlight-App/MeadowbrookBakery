@@ -1,0 +1,17 @@
+# Site settings
+# These are used to personalize the site. They're accessible in templates via
+# `site.metadata.title`, `site.metadata.email`, and so on.
+
+title: Meadowbrook Bakery
+tagline: Artisanal precision in every loaf
+email: hello@meadowbrookbakery.example
+description: >-
+  Meadowbrook Bakery has been baking naturally leavened breads and laminated
+  pastries since 1984. Locally milled grain, a 36-hour ferment, and a storefront
+  on Meadowbrook Lane.
+address:
+  street: 124 Meadowbrook Lane
+  locality: Willow Creek, OR 97034
+
+# This is a fictional business. The disclaimer modal points real bakeries here.
+bloomlight_email: hello@bloomlight.app

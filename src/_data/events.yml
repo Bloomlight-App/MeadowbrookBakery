@@ -1,0 +1,39 @@
+# Each event carries its own chip tint and call-to-action wording.
+- title: Sourdough Fundamentals
+  category: Workshop
+  category_classes: bg-secondary-container/30
+  date: 2024-10-12
+  date_label: "Oct 12, 2024"
+  time_label: "9:00 AM - 12:00 PM"
+  description: Learn the art and science of sourdough baking. From maintaining a starter to shaping the perfect loaf, this hands-on workshop covers the essentials for home bakers.
+  image: sourdough-workshop.jpg
+  alt: A close-up shot of hands kneading artisan sourdough bread dough on a wooden surface dusted with flour, lit warmly by early morning light.
+  cta: Register
+  cta_label: Register for Sourdough Fundamentals
+  cta_href: "#register-sourdough"
+
+- title: Autumn Pastry Premiere
+  category: Tasting
+  category_classes: bg-tertiary-container/10
+  date: 2024-10-26
+  date_label: "Oct 26, 2024"
+  time_label: "10:00 AM - 2:00 PM"
+  description: Be the first to taste our new seasonal menu. Sample a variety of autumn-inspired pastries paired with locally roasted coffee and spiced ciders.
+  image: autumn-pastries.jpg
+  alt: A spread of artisan pastries, including croissants and fruit tarts, alongside a steaming cup of coffee on a rustic wooden table.
+  cta: Learn More
+  cta_label: Learn more about Autumn Pastry Premiere
+  cta_href: "#register-autumn"
+
+- title: Harvest Community Dinner
+  category: Community
+  category_classes: bg-secondary-container/30
+  date: 2024-11-15
+  date_label: "Nov 15, 2024"
+  time_label: "6:30 PM - 9:00 PM"
+  description: Join us for a family-style dinner celebrating the local harvest. Enjoy freshly baked breads, seasonal stews, and communal joy.
+  image: harvest-dinner.jpg
+  alt: A community gathering in a rustic bakery setting, with people smiling, chatting, and sharing bread around a large wooden table.
+  cta: Reserve Seat
+  cta_label: Reserve a seat for Harvest Community Dinner
+  cta_href: "#register-dinner"

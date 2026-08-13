@@ -1,0 +1,32 @@
+<footer class="w-full bg-surface-container-low border-t border-outline-variant/20 py-stack-lg mt-stack-lg">
+  <div class="max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-stack-md text-center md:text-left">
+      <div class="flex flex-col gap-stack-sm">
+        <span class="font-headline-md text-headline-md text-primary"><%= metadata.title %></span>
+        <p class="font-body-md text-on-surface-variant max-w-xs">Artisanal precision in every loaf. Rooted in tradition, baked for today.</p>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <h4 class="font-label-lg text-label-lg text-primary uppercase tracking-widest">Navigation</h4>
+        <nav class="flex flex-col gap-2">
+          <a class="text-on-surface-variant hover:text-secondary" href="<%= relative_url "/" %>">Home</a>
+          <a class="text-on-surface-variant hover:text-secondary" href="<%= relative_url "/shop" %>">Shop</a>
+          <a class="text-on-surface-variant hover:text-secondary" href="<%= relative_url "/events" %>">Events</a>
+        </nav>
+      </div>
+
+      <div class="flex flex-col gap-4">
+        <h4 class="font-label-lg text-label-lg text-primary uppercase tracking-widest">Visit Us</h4>
+        <p class="text-on-surface-variant"><%= metadata.address.street %><br /><%= metadata.address.locality %></p>
+      </div>
+    </div>
+
+    <div class="pt-stack-md border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-on-surface-variant font-label-sm">
+      <p>&copy; <%= Time.now.year %> <%= metadata.title %>. All rights reserved.</p>
+      <div class="flex gap-stack-md">
+        <a class="hover:text-primary" href="#">Privacy Policy</a>
+        <a class="hover:text-primary" href="#">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>

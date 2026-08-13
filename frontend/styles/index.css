@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* The disclaimer's root carries `flex` for centering, which ties with preflight's
+   `[hidden] { display: none }` on specificity and wins on source order. Without
+   this rule the modal is permanently visible and ?disclaimer=off does nothing. */
+#site-disclaimer[hidden] {
+  display: none;
+}

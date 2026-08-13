@@ -1,0 +1,186 @@
+---
+layout: default
+title: Index
+nav_key: home
+---
+
+<div class="flex flex-col w-full">
+  <!-- Hero Section -->
+  <section class="relative w-full h-[819px] min-h-[600px] flex items-center justify-center bg-surface-variant overflow-hidden -mt-20 pt-20">
+    <div class="absolute inset-0 w-full h-full bg-cover bg-center"
+         role="img"
+         aria-label="A wide, serene view of a calm meadowbrook pond surrounded by tall golden reeds and lush green trees under soft, diffused morning light."
+         style="background-image: url('<%= relative_url "/images/photos/hero-meadow.jpg" %>')"></div>
+    <!-- Scrim for text readability -->
+    <div class="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/40 to-transparent mix-blend-multiply"></div>
+    <div class="relative z-10 max-w-container-max w-full mx-auto px-margin-mobile lg:px-margin-desktop flex flex-col items-center text-center mt-20">
+      <span class="font-label-lg text-label-lg text-secondary-fixed uppercase tracking-widest mb-6">Established 1984</span>
+      <h1 class="font-display-lg text-display-lg md:text-[72px] md:leading-[80px] text-on-primary mb-8 max-w-4xl drop-shadow-lg">
+        Artisanal precision in every loaf. Rooted in tradition, baked for today.
+      </h1>
+      <a class="inline-flex items-center justify-center h-12 px-8 bg-on-primary text-primary font-label-lg text-label-lg rounded-full hover:bg-primary-fixed hover:text-on-primary-fixed transition-colors shadow-lg hover:shadow-xl hover:scale-[1.02] transform duration-300"
+         href="<%= relative_url "/shop" %>">
+        Shop Fresh Bakes
+      </a>
+    </div>
+  </section>
+
+  <!-- Introduction Section -->
+  <section id="our-story" class="w-full py-stack-lg lg:py-24 bg-surface relative scroll-mt-20">
+    <div class="max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+      <div class="lg:col-span-5 flex flex-col gap-6 z-10">
+        <h2 class="font-headline-lg text-headline-lg text-primary">The Butter Bakery Tradition</h2>
+        <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+          At Meadowbrook, we believe that the best things take time. Our sourdough starter has been nurtured for over three decades, imparting a complex, unmistakable flavor to every loaf. We source our grains locally, milling them fresh to preserve their vital nutrients and earthy aromas.
+        </p>
+        <div class="pt-4">
+          <%# Placeholder, as in the source design: there's no Our Story page yet. %>
+          <a class="inline-flex items-center gap-2 font-label-lg text-label-lg text-secondary hover:text-primary transition-colors group" href="#">
+            Discover Our Story
+            <span class="material-symbols-outlined transform group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+      <div class="lg:col-span-6 lg:col-start-7 relative mt-12 lg:mt-0">
+        <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group">
+          <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+               role="img"
+               aria-label="The exterior storefront of a traditional bakery painted in deep forest green, its large glass window glowing with warm pendant light."
+               style="background-image: url('<%= relative_url "/images/photos/storefront.jpg" %>')"></div>
+          <div class="absolute inset-0 border border-on-primary/20 rounded-2xl pointer-events-none"></div>
+        </div>
+        <!-- Decorative Badge -->
+        <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-secondary-container rounded-full flex items-center justify-center p-4 shadow-xl border-4 border-surface rotate-[-12deg]">
+          <span class="font-headline-md text-headline-md text-on-secondary-container text-center leading-tight">Fresh<br />Daily</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products / Bento Grid -->
+  <section class="w-full py-stack-lg lg:py-24 bg-surface-container-low border-y border-outline-variant/20">
+    <div class="max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop flex flex-col gap-stack-lg">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div class="flex flex-col gap-2 max-w-2xl">
+          <h2 class="font-headline-lg text-headline-lg text-primary">Morning Signatures</h2>
+          <p class="font-body-md text-body-md text-on-surface-variant">Carefully crafted pastries and breads, available until sold out. We recommend pre-ordering to secure your favorites.</p>
+        </div>
+        <a class="inline-flex items-center gap-2 font-label-lg text-label-lg text-primary px-6 h-12 border border-outline hover:border-primary rounded-full transition-colors shrink-0"
+           href="<%= relative_url "/shop" %>">
+          View Full Menu
+        </a>
+      </div>
+
+      <!-- Bento Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-[320px]">
+        <!-- Large Card -->
+        <div class="lg:col-span-2 lg:row-span-2 relative rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group bg-white border border-outline-variant/30 flex flex-col justify-end">
+          <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+               role="img"
+               aria-label="A freshly baked rustic sourdough boule on a wooden board, its crust deeply caramelized and blistered with a distinct ear from scoring."
+               style="background-image: url('<%= relative_url "/images/photos/heritage-sourdough.jpg" %>')"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/30 to-transparent"></div>
+          <div class="relative z-10 p-8 flex flex-col gap-3">
+            <div class="flex gap-2 mb-2">
+              <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm rounded-full">Signature</span>
+              <span class="px-3 py-1 bg-surface/20 text-on-primary font-label-sm text-label-sm rounded-full backdrop-blur-md">Vegan</span>
+            </div>
+            <h3 class="font-headline-lg text-headline-lg text-on-primary">Heritage Sourdough</h3>
+            <p class="font-body-md text-body-md text-surface-variant max-w-md">Our 36-hour naturally leavened boule, characterized by an open crumb and a deeply caramelized, blistered crust.</p>
+            <div class="mt-4 flex items-center justify-between">
+              <span class="font-label-lg text-label-lg text-on-primary">$8.50</span>
+              <button class="w-10 h-10 rounded-full bg-on-primary text-primary flex items-center justify-center hover:bg-primary-fixed transition-colors" aria-label="Add Heritage Sourdough to basket">
+                <span class="material-symbols-outlined text-[20px]">add</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Small Card 1 -->
+        <div class="relative rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group bg-white border border-outline-variant/30 flex flex-col">
+          <div class="h-48 w-full overflow-hidden">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                 role="img"
+                 aria-label="A flaky, golden-brown butter croissant split to reveal its airy honeycomb structure, beside a steaming cup of coffee."
+                 style="background-image: url('<%= relative_url "/images/photos/classic-croissant.jpg" %>')"></div>
+          </div>
+          <div class="p-6 flex flex-col flex-grow justify-between bg-surface-container-lowest">
+            <div>
+              <h3 class="font-headline-md text-headline-md text-primary mb-2">Classic Croissant</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Three days of lamination for the perfect shatter and distinct butter flavor.</p>
+            </div>
+            <div class="mt-4 flex items-center justify-between pt-4 border-t border-outline-variant/20">
+              <span class="font-label-lg text-label-lg text-primary">$4.25</span>
+              <button class="text-secondary hover:text-primary transition-colors flex items-center gap-1 font-label-sm text-label-sm uppercase tracking-wider">
+                Add <span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Small Card 2 -->
+        <div class="relative rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group bg-white border border-outline-variant/30 flex flex-col">
+          <div class="h-48 w-full overflow-hidden">
+            <div class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                 role="img"
+                 aria-label="A rich, dark chocolate babka knot with a glossy exterior revealing swirls of chocolate filling, sprinkled with coarse sugar."
+                 style="background-image: url('<%= relative_url "/images/photos/chocolate-babka.jpg" %>')"></div>
+          </div>
+          <div class="p-6 flex flex-col flex-grow justify-between bg-surface-container-lowest">
+            <div>
+              <h3 class="font-headline-md text-headline-md text-primary mb-2">Dark Chocolate Babka</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2">Enriched brioche dough swirled with house-made 70% dark chocolate ganache.</p>
+            </div>
+            <div class="mt-4 flex items-center justify-between pt-4 border-t border-outline-variant/20">
+              <span class="font-label-lg text-label-lg text-primary">$5.50</span>
+              <button class="text-secondary hover:text-primary transition-colors flex items-center gap-1 font-label-sm text-label-sm uppercase tracking-wider">
+                Add <span class="material-symbols-outlined text-[16px]">add_shopping_cart</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location & Hours Section -->
+  <section class="w-full py-stack-lg lg:py-32 bg-surface">
+    <div class="max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+        <div class="flex flex-col gap-8">
+          <div>
+            <h2 class="font-headline-lg text-headline-lg text-primary mb-4">Visit the Bakery</h2>
+            <p class="font-body-lg text-body-lg text-on-surface-variant">Stop by our flagship store for the full Meadowbrook experience. Smell the fresh bread, taste our seasonal pastries, and watch our bakers at work through the open kitchen.</p>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div class="flex flex-col gap-2">
+              <h3 class="font-label-lg text-label-lg text-secondary uppercase tracking-widest">Location</h3>
+              <p class="font-body-md text-body-md text-primary font-medium"><%= site.metadata.address.street %></p>
+              <p class="font-body-md text-body-md text-on-surface-variant"><%= site.metadata.address.locality %></p>
+              <a class="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary hover:text-secondary transition-colors mt-2 underline underline-offset-4" href="#">Get Directions</a>
+            </div>
+            <div class="flex flex-col gap-2">
+              <h3 class="font-label-lg text-label-lg text-secondary uppercase tracking-widest">Hours</h3>
+              <ul class="flex flex-col gap-1 font-body-md text-body-md text-on-surface-variant">
+                <li class="flex justify-between"><span class="text-primary font-medium">Wed - Fri:</span> 7am - 3pm</li>
+                <li class="flex justify-between"><span class="text-primary font-medium">Sat - Sun:</span> 8am - 4pm</li>
+                <li class="flex justify-between"><span class="text-primary font-medium">Mon - Tue:</span> Closed</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="relative w-full aspect-square md:aspect-video lg:aspect-square rounded-[2rem] overflow-hidden shadow-xl border-8 border-surface-container-low">
+          <div class="w-full h-full bg-surface-variant flex items-center justify-center bg-cover bg-center"
+               role="img"
+               aria-label="Map showing the bakery at 124 Meadowbrook Lane, Willow Creek, Oregon."
+               style="background-image: url('<%= relative_url "/images/photos/bakery-map.png" %>')">
+            <div class="absolute inset-0 bg-primary/5 mix-blend-color-burn"></div>
+            <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 bg-primary rounded-full flex items-center justify-center shadow-lg animate-bounce">
+              <span class="material-symbols-outlined text-on-primary">location_on</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,26 @@
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-md shadow-[0_1px_8px_rgba(6,27,14,0.04)] transition-all duration-300">
+  <div class="h-20 max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop flex items-center justify-between">
+    <a href="<%= relative_url "/" %>" class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary text-[32px]">bakery_dining</span>
+      <span class="font-headline-lg text-headline-md tracking-tight text-primary">Meadowbrook</span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-stack-lg">
+      <% LINKS.each do |link| %>
+        <a href="<%= relative_url link[:href] %>"
+           data-path="<%= link[:key] %>"
+           <%= %(aria-current="page").html_safe if active?(link) %>
+           class="<%= active?(link) ? ACTIVE_CLASSES : INACTIVE_CLASSES %>"><%= link[:label] %></a>
+      <% end %>
+    </nav>
+
+    <div class="flex items-center gap-6">
+      <button class="text-on-surface-variant hover:text-primary transition-colors" aria-label="Basket">
+        <span class="material-symbols-outlined">shopping_basket</span>
+      </button>
+      <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+        <span class="material-symbols-outlined text-on-primary text-[18px]">person</span>
+      </div>
+    </div>
+  </div>
+</header>

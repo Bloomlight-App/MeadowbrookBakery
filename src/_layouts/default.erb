@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="<%= site.locale %>">
+  <head>
+    <%= render "head", metadata: site.metadata, title: data.title %>
+  </head>
+  <body class="bg-surface font-body-md text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+    <%= render Shared::Navbar.new(metadata: site.metadata, resource: resource) %>
+
+    <%# Each page owns the wrapper immediately inside <main>: the heroes differ in
+        whether they pull up under the fixed header, so it can't be hoisted here. %>
+    <main class="w-full pt-20 bg-surface">
+      <%= yield %>
+    </main>
+
+    <%= render "footer", metadata: site.metadata %>
+    <%= render "disclaimer", metadata: site.metadata %>
+  </body>
+</html>

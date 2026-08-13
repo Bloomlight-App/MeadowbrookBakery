@@ -1,0 +1,35 @@
+# Shop listings. `badge`, `badge_classes`, `icon` and `icon_label` are optional —
+# the design deliberately gives each card a different amount of trim.
+- name: Country Sourdough
+  price: "$8.50"
+  description: Our signature loaf. 36-hour fermentation for complex flavor and a perfectly blistered crust.
+  image: country-sourdough.jpg
+  alt: A perfect, crusty sourdough boule sitting on a floured wooden cutting board, natural lighting highlighting the distinct ear and blistered crust.
+  badge: Bestseller
+  badge_classes: bg-secondary-fixed/90 text-on-secondary-fixed
+  icon: eco
+  icon_label: Organic Flour
+
+- name: Butter Croissant
+  price: "$4.25"
+  description: Classic French lamination process using high-fat European butter for ultimate flakiness.
+  image: butter-croissant.webp
+  alt: Two flaky, golden-brown butter croissants on a minimalist ceramic plate, resting on a white marble countertop.
+  icon: bakery_dining
+  icon_label: Baked Daily
+
+- name: Olive Focaccia
+  price: "$6.00"
+  description: Airy, olive-oil rich crumb studded with Kalamata olives and fresh rosemary.
+  image: olive-focaccia.webp
+  alt: A rustic olive and rosemary focaccia slab, dimpled surface glistening with olive oil, scattered with sea salt flakes.
+  badge: Vegan
+  badge_classes: bg-primary-container/90 text-on-primary-container
+
+- name: Danish Rye
+  price: "$9.50"
+  description: Dense, seed-heavy rugbrød packed with cracked rye, sunflower seeds, and flax.
+  image: danish-rye.jpg
+  alt: A slice of dark, dense rye bread spread generously with cultured butter, resting on a rustic wooden board.
+  icon: psychiatry
+  icon_label: Whole Grain

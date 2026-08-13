@@ -1,0 +1,47 @@
+<%# Shown once per session, unless the URL carries ?disclaimer=off.
+    Starts `hidden` so it can never flash before the querystring and the
+    stored dismissal are read — frontend/javascript/index.js reveals it. %>
+<div id="site-disclaimer"
+     class="fixed inset-0 z-[100] flex items-center justify-center p-margin-mobile md:p-8 bg-primary/70 backdrop-blur-sm"
+     role="dialog"
+     aria-modal="true"
+     aria-labelledby="site-disclaimer-title"
+     hidden>
+  <div class="relative w-full max-w-xl max-h-full overflow-y-auto bg-surface-container-lowest rounded-xl shadow-2xl border border-outline-variant/30 p-8 md:p-10 flex flex-col gap-stack-sm">
+    <button type="button"
+            data-disclaimer-dismiss
+            aria-label="Close this notice"
+            class="absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+
+    <span class="font-label-lg text-label-lg text-secondary uppercase tracking-widest">Demonstration site</span>
+
+    <h2 id="site-disclaimer-title" class="font-headline-lg text-headline-lg text-primary pr-10">
+      Meadowbrook Bakery is not a real business
+    </h2>
+
+    <p class="font-body-md text-body-md text-on-surface-variant">
+      This site is a fictional sample built by <strong class="text-primary font-medium">Bloomlight</strong> to demonstrate our work. There is no bakery at 124 Meadowbrook Lane. Every product, price, event, and opening hour on these pages is invented, nothing is for sale, and no order or booking placed here reaches anyone.
+    </p>
+
+    <p class="font-body-md text-body-md text-on-surface-variant">
+      Do you run a real Meadowbrook Bakery, or a business with a name close to it? We would be glad to send visitors your way instead. Get in touch at
+      <a href="mailto:<%= metadata.bloomlight_email %>?subject=Meadowbrook%20Bakery%20sample%20site"
+         class="text-secondary hover:text-primary underline underline-offset-4 font-medium break-words"><%= metadata.bloomlight_email %></a>
+      and we will happily add your name, a short description, and links to your website or other online presence to this notice.
+    </p>
+
+    <div class="flex flex-col sm:flex-row sm:items-center gap-4 pt-2">
+      <button type="button"
+              data-disclaimer-dismiss
+              data-disclaimer-primary
+              class="inline-flex items-center justify-center h-12 px-8 bg-primary text-on-primary font-label-lg text-label-lg rounded-full hover:bg-primary-container transition-colors shrink-0">
+        Continue to the demo
+      </button>
+      <p class="font-label-sm text-label-sm text-on-surface-variant">
+        Add <code class="font-mono text-primary">?disclaimer=off</code> to any URL to skip this notice.
+      </p>
+    </div>
+  </div>
+</div>

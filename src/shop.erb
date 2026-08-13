@@ -1,0 +1,126 @@
+---
+layout: default
+title: Shop
+nav_key: shop
+---
+
+<div class="flex flex-col w-full min-h-screen pb-stack-lg">
+  <!-- Hero / Category Header -->
+  <section class="relative w-full overflow-hidden bg-surface-container py-12 md:py-24 px-margin-mobile lg:px-margin-desktop mb-stack-lg">
+    <div class="max-w-container-max mx-auto flex flex-col md:flex-row items-center gap-12">
+      <div class="flex-1 text-center md:text-left z-10">
+        <h1 class="font-display-lg text-display-lg text-primary mb-4 relative inline-block">
+          Our Bakes
+          <svg class="absolute -bottom-2 left-0 w-full h-3 text-secondary/30" preserveAspectRatio="none" viewBox="0 0 100 20" aria-hidden="true">
+            <path d="M0 10 Q 25 20, 50 10 T 100 10" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="3"></path>
+          </svg>
+        </h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-md mx-auto md:mx-0">
+          Handcrafted daily using organic flour and time-honored techniques. Experience the warmth of tradition in every bite.
+        </p>
+      </div>
+      <div class="flex-1 w-full max-w-lg relative">
+        <div class="aspect-[4/3] rounded-2xl overflow-hidden shadow-xl transform rotate-2 hover:rotate-0 transition-transform duration-500 ease-out border border-outline-variant/30">
+          <div class="w-full h-full bg-cover bg-center"
+               role="img"
+               aria-label="A rustic bread basket overflowing with fresh sourdough boules, baguettes, and croissants on a dark wooden table in a sunlit bakery."
+               style="background-image: url('<%= relative_url "/images/photos/bread-basket.jpg" %>')"></div>
+        </div>
+      </div>
+    </div>
+    <!-- Decorative background element -->
+    <div class="absolute -top-32 -right-32 w-96 h-96 bg-primary-fixed/30 rounded-full blur-3xl pointer-events-none"></div>
+  </section>
+
+  <!-- Filter & Controls -->
+  <div class="w-full max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop mb-8 sticky top-20 z-40 bg-surface/95 backdrop-blur-md py-4 border-b border-outline-variant/20 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <div class="flex gap-2 overflow-x-auto pb-2 sm:pb-0 w-full sm:w-auto snap-x">
+      <button class="snap-start shrink-0 px-4 py-2 rounded-full bg-primary text-on-primary font-label-sm text-label-sm uppercase tracking-wider transition-all hover:bg-primary/90 shadow-md">All Goods</button>
+      <button class="snap-start shrink-0 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm uppercase tracking-wider border border-outline-variant/50 transition-all hover:bg-surface-variant hover:border-primary">Sourdough</button>
+      <button class="snap-start shrink-0 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm uppercase tracking-wider border border-outline-variant/50 transition-all hover:bg-surface-variant hover:border-primary">Pastries</button>
+      <button class="snap-start shrink-0 px-4 py-2 rounded-full bg-surface-container text-on-surface font-label-sm text-label-sm uppercase tracking-wider border border-outline-variant/50 transition-all hover:bg-surface-variant hover:border-primary">Pantry</button>
+    </div>
+    <div class="flex items-center gap-3 w-full sm:w-auto self-end">
+      <span class="font-label-sm text-on-surface-variant uppercase tracking-widest hidden sm:inline">Sort:</span>
+      <div class="relative w-full sm:w-48 group">
+        <button class="w-full flex items-center justify-between bg-surface-container-low border-b border-secondary py-2 px-3 text-left font-body-md text-on-surface transition-colors hover:bg-surface-variant">
+          <span>Popularity</span>
+          <span class="material-symbols-outlined text-[18px]">expand_more</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="w-full max-w-container-max mx-auto px-margin-mobile lg:px-margin-desktop">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-gutter gap-y-12">
+      <% site.data.products.each do |product| %>
+        <article class="group flex flex-col relative h-full">
+          <div class="relative aspect-[4/5] mb-4 overflow-hidden rounded-xl bg-surface-container-highest border border-outline-variant/20 shadow-sm transition-all duration-300 group-hover:shadow-[0_8px_24px_rgba(6,27,14,0.08)] group-hover:-translate-y-1">
+            <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                 src="<%= relative_url "/images/photos/#{product.image}" %>"
+                 alt="<%= product.alt %>"
+                 loading="lazy" />
+            <% if product.badge %>
+              <div class="absolute top-3 left-3 flex flex-col gap-2">
+                <span class="<%= product.badge_classes %> backdrop-blur-sm font-label-sm text-label-sm px-3 py-1 rounded-full uppercase tracking-wider shadow-sm"><%= product.badge %></span>
+              </div>
+            <% end %>
+            <button aria-label="Add <%= product.name %> to cart"
+                    class="absolute bottom-4 right-4 w-12 h-12 bg-primary text-on-primary rounded-full flex items-center justify-center opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 shadow-lg hover:bg-primary/90 focus:opacity-100 focus:translate-y-0">
+              <span class="material-symbols-outlined">add_shopping_cart</span>
+            </button>
+          </div>
+          <div class="flex flex-col flex-1 px-1">
+            <div class="flex justify-between items-start gap-2 mb-1">
+              <h3 class="font-headline-md text-headline-md text-primary truncate"><%= product.name %></h3>
+              <span class="font-label-lg text-label-lg text-secondary whitespace-nowrap"><%= product.price %></span>
+            </div>
+            <p class="font-body-md text-on-surface-variant text-sm line-clamp-2 mb-3 flex-1"><%= product.description %></p>
+            <% if product.icon %>
+              <div class="flex items-center gap-1 mt-auto">
+                <span class="material-symbols-outlined text-[14px] text-primary"><%= product.icon %></span>
+                <span class="font-label-sm text-xs text-on-surface-variant"><%= product.icon_label %></span>
+              </div>
+            <% end %>
+          </div>
+        </article>
+      <% end %>
+    </div>
+
+    <!-- Load More -->
+    <div class="mt-16 flex justify-center">
+      <button class="group flex items-center gap-2 px-8 py-3 rounded-full border border-secondary text-secondary font-label-lg hover:bg-secondary hover:text-on-secondary transition-colors duration-300">
+        <span>Load More Delights</span>
+        <span class="material-symbols-outlined text-[18px] transition-transform group-hover:translate-y-1">arrow_downward</span>
+      </button>
+    </div>
+  </div>
+
+  <%# Kept inline on purpose: the utility classes below exist only as JS string
+      literals, so this file has to be what Tailwind scans to emit them. %>
+  <script>
+    // Stagger the product cards in as they scroll into view.
+    document.addEventListener("DOMContentLoaded", () => {
+      const cards = document.querySelectorAll("article")
+      if (!cards.length) return
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add("opacity-100", "translate-y-0")
+              entry.target.classList.remove("opacity-0", "translate-y-8")
+            }, index * 100)
+            observer.unobserve(entry.target)
+          }
+        })
+      }, { threshold: 0.1 })
+
+      cards.forEach((el) => {
+        el.classList.add("opacity-0", "translate-y-8", "transition-all", "duration-700", "ease-out")
+        observer.observe(el)
+      })
+    })
+  </script>
+</div>
