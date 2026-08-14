@@ -30,9 +30,16 @@ task :test do
   Bridgetown::Commands::Build.start
 end
 
-require "minitest/test_task"
-Minitest::TestTask.create(:test) do |t| # add on to the test task
-  t.warning = false
+# minitest lives in the :test bundle group, which deploys leave out. Without
+# this guard the whole Rakefile fails to load there, taking the build tasks with
+# it — and the deploy runs through Rake.
+begin
+  require "minitest/test_task"
+  Minitest::TestTask.create(:test) do |t| # add on to the test task
+    t.warning = false
+  end
+rescue LoadError
+  nil
 end
 
 desc "Runs the clean command"
