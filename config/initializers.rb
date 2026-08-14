@@ -21,6 +21,23 @@ Bridgetown.configure do |config|
   # Available options are `erb` (default), `serbea`, or `liquid`
   template_engine "erb"
 
+  # The Inspectors API defaults to Nokogiri, which is not a dependency here.
+  # Nokolexbor already is, for the Inspectors API and Bridgetown::Test.
+  html_inspector_parser "nokolexbor"
+
+  # The baseline build is the same source rendered badly on purpose, served
+  # alongside the real site so the two can be compared. See plugins/baseline.rb,
+  # and `rake deploy_with_baseline`.
+  if ENV["BLOOMLIGHT_BASELINE"]
+    base_path "/baseline"
+    destination "output/baseline"
+  end
+
+  # The baseline lives inside the main build's destination, so without this an
+  # ordinary `bin/bridgetown build` sweeps it away as an orphan. `rake clean`
+  # still removes it.
+  keep_files [".git", ".svn", "baseline"]
+
   # Other options you might want to investigate:
 
   # See list of timezone values here:

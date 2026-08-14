@@ -39,11 +39,10 @@ jobs:
       - name: Install Node dependencies
         run: npm ci
 
-      - name: Build frontend
-        run: npm run esbuild
-
-      - name: Build site
-        run: bin/bridgetown build
+      # Builds the real site into output/, then the deliberately-degraded
+      # baseline into output/baseline/. See plugins/baseline.rb.
+      - name: Build site and baseline
+        run: bundle exec rake deploy_with_baseline
         env:
           BRIDGETOWN_ENV: production
 

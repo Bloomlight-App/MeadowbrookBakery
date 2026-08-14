@@ -13,6 +13,17 @@ task :deploy => [:clean, "frontend:build"] do
   Bridgetown::Commands::Build.start
 end
 
+desc "Build the site, then the baseline variant alongside it under /baseline"
+task :deploy_with_baseline => :deploy do
+  # A separate process on purpose: the configuration is read once per boot, and
+  # the baseline needs its own base_path and destination.
+  sh "BLOOMLIGHT_BASELINE=1 bin/bridgetown build"
+  # esbuild writes the bundles straight into output/_bridgetown rather than
+  # through the Bridgetown build, so the baseline's copy has to be put under
+  # its own base_path by hand.
+  cp_r "output/_bridgetown", "output/baseline/"
+end
+
 desc "Build the site in a test environment"
 task :test do
   ENV["BRIDGETOWN_ENV"] = "test"
