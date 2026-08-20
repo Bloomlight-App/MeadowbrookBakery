@@ -33,6 +33,9 @@ nav_key: home
         <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
           At Meadowbrook, we believe that the best things take time. Our sourdough starter has been nurtured for over three decades, imparting a complex, unmistakable flavor to every loaf. We source our grains locally, milling them fresh to preserve their vital nutrients and earthy aromas.
         </p>
+        <p class="font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+          Owner and head baker Nick Esposito took over the bench in 2011, and still shapes every loaf by hand before the ovens are lit.
+        </p>
         <div class="pt-4">
           <%# Placeholder, as in the source design: there's no Our Story page yet. %>
           <a class="inline-flex items-center gap-2 font-label-lg text-label-lg text-secondary hover:text-primary transition-colors group" href="#">
@@ -166,6 +169,13 @@ nav_key: home
                 <li class="flex justify-between"><span class="text-primary font-medium">Sat - Sun:</span> 8am - 4pm</li>
                 <li class="flex justify-between"><span class="text-primary font-medium">Mon - Tue:</span> Closed</li>
               </ul>
+            </div>
+            <div class="flex flex-col gap-2">
+              <h3 class="font-label-lg text-label-lg text-secondary uppercase tracking-widest">Contact</h3>
+              <a class="font-body-md text-body-md text-primary font-medium hover:text-secondary transition-colors break-words"
+                 href="mailto:<%= site.metadata.email %>"><%= site.metadata.email %></a>
+              <a class="font-body-md text-body-md text-on-surface-variant hover:text-secondary transition-colors"
+                 href="tel:+1<%= site.metadata.phone.delete("^0-9") %>"><%= site.metadata.phone %></a>
             </div>
           </div>
         </div>

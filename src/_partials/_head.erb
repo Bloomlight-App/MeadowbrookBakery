@@ -8,6 +8,13 @@
 
 <meta name="description" content="<%= metadata.description %>" />
 
+<%# High in the head, the way every one of these snippets asks to be — but not on
+    the error pages, which opt out of discovery below for the same reason: nobody
+    goes there on purpose, so there is nothing worth counting. %>
+<% unless resource.data.noindex %>
+<%= render "trackers" %>
+<% end %>
+
 <%# The error pages are reached by accident, never linked or shared, and their
     permalinks keep a .html suffix that absolute_url strips — so a canonical
     here would point at a URL that does not exist. Skip the discovery tags. %>

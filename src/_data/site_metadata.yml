@@ -4,7 +4,10 @@
 
 title: Meadowbrook Bakery
 tagline: Artisanal precision in every loaf
-email: hello@meadowbrookbakery.example
+# The mailbox is real — it catches mail for the demo account Bloomlight signs
+# in as. The number is not: 555-01xx is the range reserved for fiction.
+email: hello@meadowbrookbakery.com
+phone: 503-555-0100
 description: >-
   Meadowbrook Bakery has been baking naturally leavened breads and laminated
   pastries since 1984. Locally milled grain, a 36-hour ferment, and a storefront
