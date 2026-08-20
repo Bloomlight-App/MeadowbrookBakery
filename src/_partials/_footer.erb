@@ -18,6 +18,7 @@
       <div class="flex flex-col gap-4">
         <h4 class="font-label-lg text-label-lg text-primary uppercase tracking-widest">Visit Us</h4>
         <p class="text-on-surface-variant"><%= metadata.address.street %><br /><%= metadata.address.locality %></p>
+        <a class="text-on-surface-variant hover:text-secondary break-words" href="mailto:<%= metadata.email %>"><%= metadata.email %></a>
       </div>
     </div>
 

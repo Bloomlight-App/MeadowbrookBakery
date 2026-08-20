@@ -25,6 +25,32 @@ class TestPages < Bridgetown::Test
     end
   end
 
+  describe "home" do
+    it "names the owner in Our Story" do
+      html get "/"
+
+      expect(document.query_selector("#our-story").text).must_include "Nick Esposito"
+    end
+
+    it "puts the bakery's own address in front of visitors" do
+      html get "/"
+
+      expect(document.query_selector("main a[href^='mailto:']")["href"]).must_equal "mailto:hello@meadowbrookbakery.com"
+    end
+
+    it "gives that address a phone number beside it" do
+      html get "/"
+
+      expect(document.query_selector("main a[href^='tel:']")["href"]).must_equal "tel:+15035550100"
+    end
+
+    it "repeats the address in the footer" do
+      html get "/"
+
+      expect(document.query_selector("footer a[href^='mailto:']")["href"]).must_equal "mailto:hello@meadowbrookbakery.com"
+    end
+  end
+
   describe "shop" do
     it "lists every product from the data file" do
       html get "/shop/"

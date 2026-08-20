@@ -1,0 +1,63 @@
+<%# The bakery carries trackers so that the Bloomlight demo has something to
+    detect on it. None of the ids belong to an account: there is no property,
+    no pixel and no project behind any of them, and the beacons they fire are
+    dropped on arrival.
+
+    Each id is well-formed for its vendor all the same, because Bloomlight reads
+    the *request URL* — the id in the query string is what ends up on the
+    dashboard chip. `app/lib/tech_catalog.rb` in the Bloomlight repo holds the
+    patterns; test/test_trackers.rb pins these URLs against them.
+
+    Google Tag Manager is deliberately absent. `gtm.js?id=` answers 404 for a
+    container that does not exist, and a script that fails to load is a console
+    error Lighthouse counts against Best Practices — on the one site whose clean
+    score is the entire point. Microsoft Clarity takes the slot: an unknown
+    project answers 204, so nothing runs and nothing is logged. %>
+
+<%# Google Analytics 4 and Google Ads. Two script tags rather than one: the Ads
+    id has to appear in a `gtag/js?id=` URL to be seen at all, and a bare
+    `gtag('config', 'AW-…')` never puts it in one. %>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MB1984LOAF"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-1984124100"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-MB1984LOAF');
+  gtag('config', 'AW-1984124100');
+</script>
+
+<%# Meta Pixel. fbevents.js carries no id, so the chip's identifier can only come
+    from the `facebook.com/tr?id=` beacon — which means the PageView has to fire. %>
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window,document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '198412400010001');
+  fbq('track', 'PageView');
+</script>
+
+<%# TikTok Pixel. `ttq.load` builds the script URL as base + "?sdkid=" + id, so
+    the id reaches the network even though it is not literal in this markup. %>
+<script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.callMethod?t.callMethod.apply(t,arguments):t.queue.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=d.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=d.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+
+    ttq.load('CMB1984LOAF124MEADOW');
+    ttq.page();
+  }(window, document, 'ttq');
+</script>
+
+<%# Microsoft Clarity. Same shape: the project id is appended to the tag URL. %>
+<script>
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "mb1984loaf");
+</script>
