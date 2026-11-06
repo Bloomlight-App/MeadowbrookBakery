@@ -14,5 +14,9 @@
 
     <%= render "footer", metadata: site.metadata %>
     <%= render "disclaimer", metadata: site.metadata %>
+    <%# Only where the trackers are: the error pages have nothing to consent to. %>
+    <% unless resource.data.noindex %>
+    <%= render "consent" %>
+    <% end %>
   </body>
 </html>

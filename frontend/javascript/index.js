@@ -64,3 +64,40 @@ function setupDisclaimer() {
 }
 
 document.addEventListener("DOMContentLoaded", setupDisclaimer)
+
+// Consent bar. The stored answer is read again, inline and before the Google
+// tags load, by src/_partials/_trackers.erb — the key must match.
+const CONSENT_KEY = "consent"
+const CONSENT_TYPES = ["ad_storage", "ad_user_data", "ad_personalization", "analytics_storage"]
+
+function storedConsent() {
+  try {
+    return window.localStorage.getItem(CONSENT_KEY)
+  } catch {
+    return null
+  }
+}
+
+function setupConsent() {
+  const bar = document.getElementById("consent-bar")
+  if (!bar || storedConsent()) return
+
+  bar.querySelectorAll("[data-consent]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const choice = button.dataset.consent
+      try {
+        window.localStorage.setItem(CONSENT_KEY, choice)
+      } catch {
+        // Not remembered: the bar asks again next page load.
+      }
+      if (choice === "granted") {
+        window.gtag?.("consent", "update", Object.fromEntries(CONSENT_TYPES.map((type) => [type, "granted"])))
+      }
+      bar.setAttribute("hidden", "")
+    })
+  })
+
+  bar.removeAttribute("hidden")
+}
+
+document.addEventListener("DOMContentLoaded", setupConsent)
