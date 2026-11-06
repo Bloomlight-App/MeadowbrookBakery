@@ -1,29 +1,59 @@
 <%# The bakery carries trackers so that the Bloomlight demo has something to
-    detect on it. None of the ids belong to an account: there is no property,
-    no pixel and no project behind any of them, and the beacons they fire are
-    dropped on arrival.
+    detect on it. Google Analytics is real — G-5KKC90YV7F is a live property, so
+    the demo has traffic to show, and it waits on the consent bar
+    (src/_partials/_consent.erb). None of the other ids belong to an account:
+    there is no pixel and no project behind any of them, and the beacons they
+    fire are dropped on arrival.
 
     Each id is well-formed for its vendor all the same, because Bloomlight reads
     the *request URL* — the id in the query string is what ends up on the
     dashboard chip. `app/lib/tech_catalog.rb` in the Bloomlight repo holds the
     patterns; test/test_trackers.rb pins these URLs against them.
 
-    Google Tag Manager is deliberately absent. `gtm.js?id=` answers 404 for a
-    container that does not exist, and a script that fails to load is a console
-    error Lighthouse counts against Best Practices — on the one site whose clean
-    score is the entire point. Microsoft Clarity takes the slot: an unknown
-    project answers 204, so nothing runs and nothing is logged. %>
+    Google Tag Manager is deliberately absent. `gtm.js?id=GTM-…` answers 404 for
+    a container that does not exist, and a script that fails to load is a
+    console error Lighthouse counts against Best Practices — on the one site
+    whose clean score is the entire point. Microsoft Clarity takes the slot: an
+    unknown project answers 204, so nothing runs and nothing is logged. The
+    Analytics tag below loads from gtm.js too, but that is Google's own snippet
+    for a Google tag id, not a container, and it answers 200. %>
 
 <%# Google Analytics 4 and Google Ads. Two script tags rather than one: the Ads
     id has to appear in a `gtag/js?id=` URL to be seen at all, and a bare
-    `gtag('config', 'AW-…')` never puts it in one. %>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-MB1984LOAF"></script>
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-1984124100"></script>
+    `gtag('config', 'AW-…')` never puts it in one. The Analytics tag is
+    Google's snippet as issued, `gtm.js` and no `config` call included.
+
+    Consent Mode has to be set before either tag loads, which is why this runs
+    first and inline: the bundle is deferred, so by the time it could read a
+    returning visitor's choice the first hit would already have gone out as
+    denied. Denied is still advanced mode — the tags load and send cookieless
+    pings — so the request URLs Bloomlight reads are on the wire either way. %>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied'
+  });
+  try {
+    if (localStorage.getItem('consent') === 'granted') {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted',
+        analytics_storage: 'granted'
+      });
+    }
+  } catch (e) {
+    // Storage denied: the defaults stand.
+  }
+</script>
+<script async src="https://www.googletagmanager.com/gtm.js?id=G-5KKC90YV7F"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-1984124100"></script>
+<script>
   gtag('js', new Date());
-  gtag('config', 'G-MB1984LOAF');
   gtag('config', 'AW-1984124100');
 </script>
 

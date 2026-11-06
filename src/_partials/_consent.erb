@@ -1,0 +1,30 @@
+<%# Asks before Google Analytics and Google Ads may set cookies. Consent Mode
+    defaults are in src/_partials/_trackers.erb; this only records the answer.
+    The other trackers there are fictional and do not wait on it, so the wording
+    names Google and nothing else.
+
+    A region, not a dialog: it sits under the page rather than over it, and
+    below the disclaimer's z-[100]. Starts `hidden` so a returning visitor never
+    sees it flash — frontend/javascript/index.js reveals it. %>
+<section id="consent-bar"
+         class="fixed inset-x-0 bottom-0 z-[90] p-margin-mobile md:p-6"
+         aria-label="Cookie consent"
+         hidden>
+  <div class="mx-auto max-w-4xl bg-surface-container-lowest rounded-xl shadow-2xl border border-outline-variant/30 p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <p class="font-body-md text-body-md text-on-surface-variant">
+      May we use Google Analytics cookies to count visits to this demo?
+    </p>
+    <div class="flex gap-3 shrink-0">
+      <button type="button"
+              data-consent="denied"
+              class="inline-flex items-center justify-center h-12 px-6 border border-primary text-primary font-label-lg text-label-lg rounded-full hover:bg-surface-container transition-colors">
+        Decline
+      </button>
+      <button type="button"
+              data-consent="granted"
+              class="inline-flex items-center justify-center h-12 px-6 bg-primary text-on-primary font-label-lg text-label-lg rounded-full hover:bg-primary-container transition-colors">
+        Accept
+      </button>
+    </div>
+  </div>
+</section>

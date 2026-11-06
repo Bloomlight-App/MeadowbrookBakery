@@ -19,10 +19,11 @@ class TestTrackers < Bridgetown::Test
   TRACKERS = [
     {
       vendor: "Google Analytics 4",
-      pattern: %r{gtag/js\?[^"'\s]*\bid=(G-[A-Z0-9]+)}i,
-      request: "https://www.googletagmanager.com/gtag/js?id=G-MB1984LOAF",
-      identifier: "G-MB1984LOAF",
-      literals: ["https://www.googletagmanager.com/gtag/js?id=G-MB1984LOAF"],
+      # Google issues the GA4 snippet on gtm.js now; older installs use gtag/js.
+      pattern: %r{(?:gtag/js|gtm\.js)\?[^"'\s]*\bid=(G-[A-Z0-9]+)}i,
+      request: "https://www.googletagmanager.com/gtm.js?id=G-5KKC90YV7F",
+      identifier: "G-5KKC90YV7F",
+      literals: ["https://www.googletagmanager.com/gtm.js?id=G-5KKC90YV7F"],
     },
     {
       vendor: "Google Ads",
@@ -76,6 +77,14 @@ class TestTrackers < Bridgetown::Test
 
           tracker[:literals].each { expect(body).must_include _1 }
         end
+      end
+
+      it "sets Consent Mode defaults before either Google tag loads" do
+        body = get(path).body
+
+        default = body.index("gtag('consent', 'default'")
+        expect(default).wont_be_nil
+        TRACKERS.first(2).each { expect(default).must_be :<, body.index(_1[:literals].first) }
       end
     end
   end
