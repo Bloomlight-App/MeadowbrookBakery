@@ -20,6 +20,13 @@ class TestBloomlight < Bridgetown::Test
     expect(document.query_selector("body")["data-bloomlight-idle-ms"]).must_be_nil
   end
 
+  it "fades in only when reduced motion is not requested" do
+    html get "/bloomlight/"
+
+    styles = document.query_selector("style").text
+    expect(styles).must_match(/@media \(prefers-reduced-motion: no-preference\)\s*\{\s*body \{ animation: bloomlight-fade-in/)
+  end
+
   it "shows the butterfly toy and both Bloomlight links on the reveal page" do
     html get "/bloomlight/"
 

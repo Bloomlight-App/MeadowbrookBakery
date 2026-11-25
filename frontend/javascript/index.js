@@ -109,9 +109,10 @@ if (bloomlightPage) {
   const clickLimit = 8
   let demoClicks = 0
   let idleTimer
+  let revealFade
   let revealing = false
 
-  function revealBloomlight() {
+  async function revealBloomlight() {
     if (revealing) return
     revealing = true
     clearTimeout(idleTimer)
@@ -120,6 +121,18 @@ if (bloomlightPage) {
       window.sessionStorage.removeItem(clickKey)
     } catch {
       // The in-memory count is already reset.
+    }
+    if (document.body.animate && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      revealFade = document.body.animate([{ opacity: 1 }, { opacity: 0 }], {
+        duration: 220,
+        easing: "ease-in",
+        fill: "forwards",
+      })
+      try {
+        await revealFade.finished
+      } catch {
+        return
+      }
     }
     window.location.assign(bloomlightPage)
   }
@@ -137,6 +150,8 @@ if (bloomlightPage) {
   document.addEventListener("visibilitychange", resetIdleTimer)
   window.addEventListener("pagehide", () => clearTimeout(idleTimer))
   window.addEventListener("pageshow", () => {
+    revealFade?.cancel()
+    revealFade = undefined
     revealing = false
     resetIdleTimer()
   })
