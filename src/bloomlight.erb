@@ -1,0 +1,282 @@
+---
+permalink: /bloomlight/
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<% page_title = "Bloomlight Website Monitoring | Meadowbrook Bakery Demo" %>
+<% description = "Explore how Bloomlight monitors website performance, accessibility, SEO, and uptime, and see a sample report for the Meadowbrook Bakery demo site." %>
+<% canonical = resource.absolute_url %>
+<% social_image = absolute_url "/images/bloomlight-social.jpg" %>
+<% image_alt = "Bloomlight logo and wordmark over the Meadowbrook Bakery storefront" %>
+<title><%= page_title %></title>
+<meta name="description" content="<%= description %>">
+<link rel="canonical" href="<%= canonical %>">
+<link rel="icon" href="<%= relative_url "/images/favicon.svg" %>" type="image/svg+xml">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="<%= site.metadata.title %>">
+<meta property="og:title" content="<%= page_title %>">
+<meta property="og:description" content="<%= description %>">
+<meta property="og:url" content="<%= canonical %>">
+<meta property="og:image" content="<%= social_image %>">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="<%= image_alt %>">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image:alt" content="<%= image_alt %>">
+
+<script type="application/ld+json">
+<%== JSON.pretty_generate({
+  "@context" => "https://schema.org",
+  "@type" => "AboutPage",
+  "@id" => canonical,
+  "url" => canonical,
+  "name" => page_title,
+  "description" => description,
+  "inLanguage" => "en",
+  "mainEntity" => {
+    "@type" => "WebApplication",
+    "name" => "Bloomlight",
+    "url" => "https://bloomlight.app/"
+  }
+}).gsub("<") { "\u003c" } %>
+</script>
+<style>
+  body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #fff; }
+main { width: min(90vw, 54rem); padding-block: 3rem; color: #061b0e; text-align: center; font: 1rem/1.6 system-ui, sans-serif; }
+.lockup { display: block; width: min(100%, 42rem); overflow: visible; margin: 0 auto 2rem; }
+p { max-width: 38rem; margin-inline: auto; }
+nav { display: flex; flex-wrap: wrap; justify-content: center; gap: .75rem 1.5rem; margin-block: 1.5rem; }
+a { color: #80552c; text-underline-offset: .2em; }
+a:hover { color: #061b0e; }
+@media (prefers-reduced-motion: reduce) {
+  .lockup * { animation: none !important; transition: none !important; }
+}
+
+  /* the i dot shrinks away as the bloom grows from the same spot */
+  #i-dot { transform-box: fill-box; transform-origin: center; transition: transform .25s ease-in .05s; }
+  .word:hover #i-dot { transform: scale(0); transition-delay: 0s; }
+
+  .bloom { transform-origin: 274.5px 259px; transform: scale(0); transition: transform .45s cubic-bezier(.3,1.4,.6,1); }
+  .word:hover .bloom { transform: scale(1); }
+
+  /* petals open about the flower's base; beams grow out from their tips */
+  .bloom > g { transition: transform .5s cubic-bezier(.3,1.3,.6,1) var(--d), opacity .3s var(--d); opacity: 0; }
+  .bloom .petal { transform-origin: 274.5px 507px; transform: rotate(var(--r)) scale(.3); }
+  .bloom .beam { transform-box: fill-box; transform-origin: 50% 100%; transform: scale(0); }
+  .word:hover .bloom > g { transform: none; opacity: 1; }
+  .word:not(:hover) .bloom > g { transition-delay: 0s; }
+
+  /* hovering the mark: the beams stretch upward and shimmer, like light through clouds */
+  .mark .ray { transform-box: fill-box; transform-origin: 50% 100%; transition: transform .8s cubic-bezier(.2,.8,.3,1) var(--d); }
+  .mark:hover .ray { transform: scale(1.06, 1.35); }
+  .mark:hover .ray path { animation: shimmer 2.4s ease-in-out var(--d) infinite; }
+  @keyframes shimmer {
+    0%, 100% { opacity: 1; filter: brightness(1); }
+    35% { opacity: var(--o); filter: brightness(var(--b)); }
+    60% { opacity: calc((1 + var(--o)) / 2 + .2); filter: brightness(calc((1 + var(--b)) / 2)); }
+  }
+
+  /* butterflies: positioned by script, wings flap by CSS */
+  #flutter { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+  .fly { position: absolute; left: 0; top: 0; width: 30px; height: 24px; margin: -12px 0 0 -15px; will-change: transform; }
+  .fly svg { width: 100%; height: 100%; overflow: visible; }
+  .fly .wl, .fly .wr { transform-box: fill-box; animation: flap var(--flap, .14s) ease-in-out infinite alternate; }
+  .fly .wl { transform-origin: 100% 50%; }
+  .fly .wr { transform-origin: 0 50%; }
+  @keyframes flap { from { transform: scaleX(1); } to { transform: scaleX(.2); } }
+</style>
+</head>
+<body>
+<main>
+<svg class="lockup" viewBox="80 20 1900 640" role="img" aria-label="Bloomlight">
+  <svg class="mark" x="92" y="118" width="528" height="496" viewBox="0 0 549 516" overflow="visible">
+    <rect width="549" height="516" fill="transparent"/>
+    <g class="ray" style="--d:0s;--o:0.55;--b:1.25"><path d="M274.3 149.4c1.5-20.2 22.6-105.3 8.2-118-4.1-3.6-12.2-2.7-8.6-2.8-26 .5-4.1 113.2.4 120.8" style="fill:#ffb3bd;fill-rule:nonzero" transform="translate(0 9)"/></g>
+    <path d="M95 137c59 24 116 61 144 121 22 50 35 162 35 249-.988-.798-1.94-5.688-2.864-6.65-6.997-7.287-12.423-14.739-20.317-21.952C172.191 406.559 77.877 296.836 68 269c-17-43-1-97 27-132" style="fill:#e16f81;fill-rule:nonzero"/>
+    <path d="M94 133c60 23 118 65 145 125 22 50 36 162 36 249-2.595-2.045-4.299-9.648-4.299-9.648s-6.754-8.755-10.398-11.952C179.173 414.218 82.989 296.834 70 269c-11-24-12-33-9-54 2.954-20.68 21-65 33-82" style="fill:#e16f81;fill-rule:nonzero" transform="matrix(-1 0 0 1 549 0)"/>
+    <g class="ray" style="--d:0.3s;--o:0.3;--b:2.2"><path d="M244.5 131.8c-1.2-9.4-11.7-70.1-24.4-65.4-12.5 4.7 19.2 58.1 24.4 65.4m59.3.4c5-6.7 36.6-60.5 25.2-65-11.6-4.6-22.7 51.2-25.2 65" style="fill:#821533;fill-rule:nonzero" transform="translate(0 -22)"/></g>
+    <g class="ray" style="--d:0.6s;--o:0.4;--b:1.6"><path d="M237.2 164.9c.183-3.85-45.7-90.9-61.3-79-12.9 10 48.7 68 61.3 79m73 0c12.5-11.6 74.8-68.8 62-78.9-15.1-12-61.9 74.4-62 78.9" style="fill:#e16f81;fill-rule:nonzero" transform="translate(0 -22)"/></g>
+    <path d="M153 215c35 14 63 42 83 74 30 51 37 129 37 209-13-76-28-129-96-170-45-26-48-72-24-113" style="fill:#ffb3bd;fill-rule:nonzero"/>
+    <path d="M155 215c32 13 64 42 81 74 27 53 39 129 39 209-12-76-28-129-96-170-42-25-52-75-24-113" style="fill:#ffb3bd;fill-rule:nonzero" transform="matrix(-1 0 0 1 549 0)"/>
+    <path d="M3 267c85-12 156 46 198 117 24 43 60 72 73 123-39-47-88-54-143-71C55 412 16 341 3 267" style="fill:#821533;fill-rule:nonzero"/>
+    <path d="M3 274c82-14 157 37 198 107 25 44 61 76 74 126-50-66-139-53-199-101-40-31-63-84-73-132" style="fill:#821533;fill-rule:nonzero" transform="matrix(-1 0 0 1 549 0)"/>
+    <path d="M275 177.782C256 215 181 260.29 218 358.399c16 37 54 105.491 57 145.546 6-17 11-43.945 22-61.945 89-142 11-202-22-264.218" style="fill:#821533;fill-rule:nonzero" transform="matrix(1 0 0 1.05775 -1 -26.049)"/>
+  </svg>
+  <g class="word" transform="translate(685.75 308)">
+    <rect y="-94" width="1280" height="420" fill="transparent"/>
+    <g fill="none" stroke="rgb(130,21,51)" stroke-width="32">
+        <circle cx="80" cy="162" r="64"/>
+        <circle cx="304" cy="162" r="64"/>
+        <circle cx="474" cy="162" r="64"/>
+        <circle cx="961" cy="162" r="64"/>
+        <path d="M14.791,-94L16,162M192,-34L192,204C192,216.069 201.931,226 214,226L219.5,226M581,242L581,139.5C581,116.734 599.734,98 622.5,98C645.266,98 664,116.734 664,139.5L664,242M664,139.5C664,116.734 682.734,98 705.5,98C728.266,98 747,116.734 747,139.5L747,242M796,-34L796,242M853,82L853,242M1025,162L1025,248C1025,282.012 997.012,310 963,310C928.988,310 901,282.012 901,248M1073.5,-34L1073.5,242M1073.5,151.25C1073.5,122.038 1097.538,98 1126.75,98C1155.962,98 1180,122.038 1180,151.25L1180,242M1227,20L1227,187C1227,208.395 1244.605,226 1266,226L1279.5,226M1227,98L1279.5,98"/>
+      </g>
+      <circle id="i-dot" cx="853" cy="40.5" r="23.5" fill="rgb(225,111,129)"/>
+    <svg x="811.8" y="1.6" width="82.35" height="77.4" viewBox="0 0 549 516" overflow="visible">
+      <g class="bloom">
+        <g class="beam" style="--r:0deg;--d:.55s"><path d="M274.3 149.4c1.5-20.2 22.6-105.3 8.2-118-4.1-3.6-12.2-2.7-8.6-2.8-26 .5-4.1 113.2.4 120.8" style="fill:#ffb3bd;fill-rule:nonzero" transform="translate(0 9)"/></g>
+        <g class="petal" style="--r:40deg;--d:.25s"><path d="M95 137c59 24 116 61 144 121 22 50 35 162 35 249-.988-.798-1.94-5.688-2.864-6.65-6.997-7.287-12.423-14.739-20.317-21.952C172.191 406.559 77.877 296.836 68 269c-17-43-1-97 27-132" style="fill:#e16f81;fill-rule:nonzero"/></g>
+        <g class="petal" style="--r:-40deg;--d:.25s"><path d="M94 133c60 23 118 65 145 125 22 50 36 162 36 249-2.595-2.045-4.299-9.648-4.299-9.648s-6.754-8.755-10.398-11.952C179.173 414.218 82.989 296.834 70 269c-11-24-12-33-9-54 2.954-20.68 21-65 33-82" style="fill:#e16f81;fill-rule:nonzero" transform="matrix(-1 0 0 1 549 0)"/></g>
+        <g class="beam" style="--r:0deg;--d:.6s"><path d="M244.5 131.8c-1.2-9.4-11.7-70.1-24.4-65.4-12.5 4.7 19.2 58.1 24.4 65.4m59.3.4c5-6.7 36.6-60.5 25.2-65-11.6-4.6-22.7 51.2-25.2 65" style="fill:#821533;fill-rule:nonzero" transform="translate(0 -22)"/></g>
+        <g class="beam" style="--r:0deg;--d:.65s"><path d="M237.2 164.9c.183-3.85-45.7-90.9-61.3-79-12.9 10 48.7 68 61.3 79m73 0c12.5-11.6 74.8-68.8 62-78.9-15.1-12-61.9 74.4-62 78.9" style="fill:#e16f81;fill-rule:nonzero" transform="translate(0 -22)"/></g>
+        <g class="petal" style="--r:30deg;--d:.35s"><path d="M153 215c35 14 63 42 83 74 30 51 37 129 37 209-13-76-28-129-96-170-45-26-48-72-24-113" style="fill:#ffb3bd;fill-rule:nonzero"/></g>
+        <g class="petal" style="--r:-30deg;--d:.35s"><path d="M155 215c32 13 64 42 81 74 27 53 39 129 39 209-12-76-28-129-96-170-42-25-52-75-24-113" style="fill:#ffb3bd;fill-rule:nonzero" transform="matrix(-1 0 0 1 549 0)"/></g>
+        <g class="petal" style="--r:60deg;--d:.1s"><path d="M3 267c85-12 156 46 198 117 24 43 60 72 73 123-39-47-88-54-143-71C55 412 16 341 3 267" style="fill:#821533;fill-rule:nonzero"/></g>
+        <g class="petal" style="--r:-60deg;--d:.1s"><path d="M3 274c82-14 157 37 198 107 25 44 61 76 74 126-50-66-139-53-199-101-40-31-63-84-73-132" style="fill:#821533;fill-rule:nonzero" transform="matrix(-1 0 0 1 549 0)"/></g>
+        <g class="petal" style="--r:0deg;--d:.3s"><path d="M275 177.782C256 215 181 260.29 218 358.399c16 37 54 105.491 57 145.546 6-17 11-43.945 22-61.945 89-142 11-202-22-264.218" style="fill:#821533;fill-rule:nonzero" transform="matrix(1 0 0 1.05775 -1 -26.049)"/></g>
+      </g>
+    </svg>
+  </g>
+</svg>
+<div id="flutter" aria-hidden="true"></div>
+  <h1>Meet Bloomlight</h1>
+  <p>Bloomlight monitors your website’s performance, accessibility, SEO, and uptime. It explains what needs attention in plain language and helps you fix common issues.</p>
+  <nav aria-label="Bloomlight and demo links">
+    <a href="https://bloomlight.app/">Visit Bloomlight</a>
+    <a href="https://bloomlight.app/sample-report">View the demo report</a>
+    <a href="<%= relative_url "/" %>">Back to Meadowbrook Bakery</a>
+  </nav>
+</main>
+<script>
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const COUNT = 4;
+  const COLOURS = [['#e16f81', '#ffb3bd'], ['#ffb3bd', '#e16f81'], ['#821533', '#e16f81'], ['#e16f81', '#821533']];
+  const layer = document.getElementById('flutter');
+  const lockup = document.querySelector('.lockup');
+  const markBox = document.querySelector('.mark rect');
+  const wordBox = document.querySelector('.word rect');
+
+  // flower spots in each part's own coordinates: petal tips of the big flower, and the i bloom
+  const BIG = [[275, 168], [153, 215], [396, 215], [95, 140], [454, 140]];
+  const SMALL = [[853, 34]];
+
+  const toScreen = (el, [x, y]) => new DOMPoint(x, y).matrixTransform(el.getScreenCTM());
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const pick = a => a[Math.floor(Math.random() * a.length)];
+
+  let hovered = null; // 'mark' | 'word' | null
+  let flies = [];
+
+  // a little jitter so two butterflies on the same spot don't stack exactly
+  function flowerSpot() {
+    const [el, spots, j] = hovered === 'word' && Math.random() < 0.6 ? [wordBox, SMALL, 6] : [markBox, BIG, 14];
+    const [x, y] = pick(spots), spot = [x + rand(-j, j), y + rand(-j, j)];
+    return () => toScreen(el, spot);
+  }
+
+  function edgePoint() {
+    const w = innerWidth, h = innerHeight, m = 40;
+    switch (Math.floor(Math.random() * 4)) {
+      case 0: return { x: -m, y: rand(0, h) };
+      case 1: return { x: w + m, y: rand(0, h) };
+      case 2: return { x: rand(0, w), y: -m };
+      default: return { x: rand(0, w), y: h + m };
+    }
+  }
+
+  function wanderPoint() {
+    const r = lockup.getBoundingClientRect(), pad = 60;
+    return { x: rand(r.left - pad, r.right + pad), y: rand(r.top - pad, r.bottom + pad) };
+  }
+
+  function makeFly() {
+    const [upper, lower] = pick(COLOURS);
+    const el = document.createElement('div');
+    el.className = 'fly';
+    el.innerHTML = `<svg viewBox="-20 -16 40 32">
+      <g class="wl"><path d="M0-1C-5-13-19-17-18-5-17 1-8 2 0 0Z" fill="${upper}"/><path d="M0 0C-8 2-15 8-11 13-7 16-2 8 0 2Z" fill="${lower}"/></g>
+      <g class="wr"><path d="M0-1C5-13 19-17 18-5 17 1 8 2 0 0Z" fill="${upper}"/><path d="M0 0C8 2 15 8 11 13 7 16 2 8 0 2Z" fill="${lower}"/></g>
+      <ellipse rx="1.6" ry="7" fill="#4a0b1d"/>
+      <path d="M-.5-6Q-3-11-5-13M.5-6Q3-11 5-13" stroke="#4a0b1d" stroke-width=".8" fill="none"/>
+    </svg>`;
+    layer.appendChild(el);
+    const p = edgePoint();
+    return { el, x: p.x, y: p.y, vx: 0, vy: 0, angle: 0, phase: rand(0, 6.3), t: 0,
+             state: 'arrive', goal: flowerSpot(), until: 0, delay: rand(0, 0.8) };
+  }
+
+  function setState(f, state) {
+    f.state = state;
+    f.t = 0;
+    if (state === 'arrive') f.goal = flowerSpot();
+    if (state === 'sniff') f.until = rand(1.2, 2.6);
+    if (state === 'wander') { const p = wanderPoint(); f.goal = () => p; f.until = rand(2, 4); }
+    if (state === 'leave') { const p = edgePoint(); f.goal = () => p; }
+    f.el.style.setProperty('--flap', state === 'sniff' ? '.45s' : '.14s');
+  }
+
+  function step(f, dt) {
+    if (f.delay > 0) { f.delay -= dt; return true; }
+    f.t += dt;
+    const g = f.goal();
+    const dx = g.x - f.x, dy = g.y - f.y, dist = Math.hypot(dx, dy);
+    const speed = { arrive: 150, wander: 70, sniff: 0, leave: 240 }[f.state];
+
+    if (f.state === 'arrive' && dist < 4) setState(f, 'sniff');
+    else if (f.state === 'sniff' && f.t > f.until) setState(f, Math.random() < 0.3 ? 'arrive' : 'wander');
+    else if (f.state === 'wander' && (dist < 10 || f.t > f.until)) setState(f, Math.random() < 0.35 ? 'arrive' : 'wander');
+    else if (f.state === 'leave' && dist < 10) { f.el.remove(); return false; }
+
+    // steer toward the goal, easing in as it gets close
+    const want = f.state === 'sniff' ? 0 : speed * Math.min(1, dist / 80);
+    const tx = dist ? dx / dist * want : 0, ty = dist ? dy / dist * want : 0;
+    const k = f.state === 'sniff' ? 6 : 2.5;
+    f.vx += (tx - f.vx) * k * dt;
+    f.vy += (ty - f.vy) * k * dt;
+    if (f.state === 'sniff') { f.x += (g.x - f.x) * 4 * dt; f.y += (g.y - f.y) * 4 * dt; }
+    f.x += f.vx * dt;
+    f.y += f.vy * dt;
+
+    // lazy wobble on top of the path, and turn to face the direction of travel
+    const wob = f.state === 'sniff' ? 1 : 6;
+    const ox = Math.sin(f.t * 3.1 + f.phase) * wob, oy = Math.sin(f.t * 4.7 + f.phase * 2) * wob;
+    const v = Math.hypot(f.vx, f.vy);
+    const target = v > 15 ? Math.atan2(f.vy, f.vx) * 180 / Math.PI + 90 : Math.sin(f.t * 1.3 + f.phase) * 15;
+    f.angle += (((target - f.angle + 540) % 360) - 180) * Math.min(1, 5 * dt);
+    f.el.style.transform = `translate(${f.x + ox}px, ${f.y + oy}px) rotate(${f.angle}deg)`;
+    return true;
+  }
+
+  let last = 0, running = false;
+  function frame(now) {
+    const dt = Math.min(0.05, (now - last) / 1000 || 0);
+    last = now;
+    flies = flies.filter(f => step(f, dt));
+    if (flies.length) requestAnimationFrame(frame); else running = false;
+  }
+
+  let leaveTimer;
+  function enter(part) {
+    clearTimeout(leaveTimer);
+    hovered = part;
+    flies.forEach(f => { if (f.state === 'leave') setState(f, 'arrive'); });
+    while (flies.length < COUNT) flies.push(makeFly());
+    if (!running) { running = true; last = performance.now(); requestAnimationFrame(frame); }
+  }
+  function leave() {
+    leaveTimer = setTimeout(() => { hovered = null; flies.forEach(f => setState(f, 'leave')); }, 300);
+  }
+
+  for (const [sel, part] of [['.mark', 'mark'], ['.word', 'word']]) {
+    const el = document.querySelector(sel);
+    el.addEventListener('mouseenter', () => enter(part));
+    el.addEventListener('mouseleave', leave);
+    el.addEventListener('pointerup', (event) => {
+      if (event.pointerType === 'touch') {
+        enter(part);
+        setTimeout(leave, 2200);
+      }
+    });
+  }
+})();
+</script>
+</body>
+</html>

@@ -23,6 +23,13 @@ class TestDisclaimer < Bridgetown::Test
         expect(text).must_include "Bloomlight"
       end
 
+      it "links the Bloomlight credit to its homepage" do
+        html get path
+
+        link = document.query_selector('#site-disclaimer a[href="https://bloomlight.app/"]')
+        expect(link&.text).must_equal "Bloomlight"
+      end
+
       it "invites a real bakery of this name to get in touch" do
         html get path
 

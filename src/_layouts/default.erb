@@ -3,7 +3,7 @@
   <head>
     <%= render "head", metadata: site.metadata, title: data.title, resource: resource %>
   </head>
-  <body class="bg-surface font-body-md text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
+  <body<% if data.nav_key %> data-bloomlight-page="<%= relative_url "/bloomlight/" %>" data-bloomlight-idle-ms="30000"<% end %> class="bg-surface font-body-md text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed">
     <%= render Shared::Navbar.new(metadata: site.metadata, resource: resource) %>
 
     <%# Each page owns the wrapper immediately inside <main>: the heroes differ in

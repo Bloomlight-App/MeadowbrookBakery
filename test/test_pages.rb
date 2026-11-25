@@ -44,6 +44,14 @@ class TestPages < Bridgetown::Test
       expect(document.query_selector("main a[href^='tel:']")["href"]).must_equal "tel:+15035550100"
     end
 
+    it "links to Bloomlight and its demo report from the footer" do
+      html get "/"
+
+      links = document.query_selector_all("footer a").to_h { |link| [link.text.strip, link["href"]] }
+      expect(links["Bloomlight"]).must_equal "https://bloomlight.app/"
+      expect(links["View the demo report"]).must_equal "https://bloomlight.app/sample-report"
+    end
+
     it "repeats the address in the footer" do
       html get "/"
 

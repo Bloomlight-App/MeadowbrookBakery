@@ -101,3 +101,67 @@ function setupConsent() {
 }
 
 document.addEventListener("DOMContentLoaded", setupConsent)
+
+const { bloomlightPage, bloomlightIdleMs } = document.body.dataset
+
+if (bloomlightPage) {
+  const clickKey = "bloomlight-demo-clicks"
+  const clickLimit = 8
+  let demoClicks = 0
+  let idleTimer
+  let revealing = false
+
+  function revealBloomlight() {
+    if (revealing) return
+    revealing = true
+    clearTimeout(idleTimer)
+    demoClicks = 0
+    try {
+      window.sessionStorage.removeItem(clickKey)
+    } catch {
+      // The in-memory count is already reset.
+    }
+    window.location.assign(bloomlightPage)
+  }
+
+  function resetIdleTimer() {
+    clearTimeout(idleTimer)
+    if (!revealing && !document.hidden) {
+      idleTimer = setTimeout(revealBloomlight, Number(bloomlightIdleMs))
+    }
+  }
+
+  for (const activity of ["pointermove", "pointerdown", "keydown", "scroll", "click"]) {
+    document.addEventListener(activity, resetIdleTimer, { capture: true, passive: true })
+  }
+  document.addEventListener("visibilitychange", resetIdleTimer)
+  window.addEventListener("pagehide", () => clearTimeout(idleTimer))
+  window.addEventListener("pageshow", () => {
+    revealing = false
+    resetIdleTimer()
+  })
+
+  document.addEventListener("click", (event) => {
+    if (revealing || event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+    if (!event.target.closest("main, header")) return
+
+    try {
+      demoClicks = Number(window.sessionStorage.getItem(clickKey)) || 0
+    } catch {
+      // Keep counting on the current page when storage is unavailable.
+    }
+    demoClicks += 1
+
+    if (demoClicks >= clickLimit) {
+      event.preventDefault()
+      revealBloomlight()
+      return
+    }
+
+    try {
+      window.sessionStorage.setItem(clickKey, String(demoClicks))
+    } catch {
+      // The in-memory count still works for this page.
+    }
+  })
+}
